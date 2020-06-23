@@ -1,0 +1,26 @@
+# Here are the steps I used to create the tree using qiime2-2020.2
+
+#### First, download the latest qiime2-friendly tree derived from GreenGeenes:
+`
+wget -O "sepp-refs-gg-13-8.qza" "https://data.qiime2.org/2019.10/common/sepp-refs-gg-13-8.qza"
+`
+
+#### You'll have to make sure you've put your files in the correct directory and have qiime2 installed and activated.
+#### Here's the blurb from the qiime2 library:
+The move from OTU-based to sOTU-based analysis, while providing additional resolution, also introduces computational challenges. We demonstrate that one popular method of dealing with sOTUs (building a de novo tree from the short sequences) can provide incorrect results in human gut metagenomic studies and show that phylogenetic placement of the new sequences with SEPP resolves this problem while also yielding other benefits over existing methods.
+
+````` 
+qiime fragment-insertion sepp \
+	--i-representative-sequences rep-seqs.qza \
+	--i-reference-database sepp-refs-gg-13-8.qza \
+	--o-tree insertion-tree.qza \
+	--o-placements insertion-placements.qza
+````` 
+
+#### Export the tree
+
+```
+qiime tools export \
+	--input-path $PWD/insertion-tree.qza \
+	--output-path exported-tree
+```
